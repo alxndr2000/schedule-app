@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import BoxComponent from './BoxComponent';
 
-const GridComponent = () => {
+const GridComponent = (props) => {
   const boxCount = 31;
   const [allBoxData, setAllBoxData] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api');
+        const response = await fetch('/api/'+props.roomCode);
         const data = await response.json();
         setAllBoxData(data);
       } catch (error) {
@@ -17,7 +17,7 @@ const GridComponent = () => {
     };
 
     fetchData();
-  }, []);
+  }, [props.roomCode]);
 
   return (
     <div className="grid-container">
