@@ -1,9 +1,11 @@
+/* CSS is a mystery, lets just hope it works */
+
 .App {
   text-align: left;
 }
 
 .box {
-  position: relative; /* Ensure positioning context for children */
+  position: relative; 
   width: 150px;
   height: 150px;
   background: white;
