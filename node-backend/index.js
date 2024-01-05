@@ -5,7 +5,7 @@ const app = express();
 
 
 app.get("/api", (req, res) => {
-res.json({ message: "Hello from ur mum!" });
+res.json({ message: "test", box1: "data1", box2: "data2" });
 });
 
 app.listen(PORT, () => {
