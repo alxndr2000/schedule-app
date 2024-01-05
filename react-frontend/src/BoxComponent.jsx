@@ -43,6 +43,24 @@ const BoxComponent = ({ boxId, allBoxData }) => {
     }
   }
 
+  function interpolateRGB(colorStart, colorEnd, t) {
+    // Ensure the input value is within the valid range
+    const clampedT = Math.min(1, Math.max(0, t));
+  
+    // Parse the RGB components of the start and end colors
+    const startComponents = colorStart.match(/\d+/g).map(Number);
+    const endComponents = colorEnd.match(/\d+/g).map(Number);
+  
+    // Interpolate each RGB component
+    const interpolatedComponents = startComponents.map((start, index) => {
+      const end = endComponents[index];
+      return Math.round(start + (end - start) * clampedT);
+    });
+  
+    // Return the interpolated RGB color string
+    return `rgb(${interpolatedComponents.join(', ')})`;
+  }
+
   // useEffect to set boxData based on the provided allBoxData
   useEffect(() => {
     // Ensure allBoxData is defined and has the expected structure
@@ -52,9 +70,14 @@ const BoxComponent = ({ boxId, allBoxData }) => {
     }
   }, [boxId, allBoxData]);
 
+  // Calculate background color based on availability percentage
+  const backgroundColor = boxData
+  ? interpolateRGB('255,128,128', '185,254,193', boxData.data.length/boxData.users.length)
+  : 'white';
+
   // Return JSX for rendering the box
   return (
-    <div className="box">
+    <div className="box" style={{ backgroundColor }}>
       <div className="top-left-number">{boxId + 1}</div>
       <div className="box-data">
         <p className='amount-data'>
