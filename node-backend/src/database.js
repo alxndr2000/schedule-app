@@ -1,10 +1,5 @@
-const express = require("express");
 
-const PORT = process.env.PORT || 3001;
-const app = express();
-
-// the worst solution possible
-const database_fake = {
+const databaseFake = {
     "rooms": {
         "rc01": {
             "roomname": "Meeting Room A",
@@ -79,65 +74,7 @@ const database_fake = {
     }
 }
 
-// Function to generate availability JSON based on room data and code
-function generateAvailabilityJSON(roomData, roomCode) {
-    // Array to store user IDs and names
-    var userIDs = [];
-
-    // Get room data based on room code
-    var room = roomData.rooms[roomCode];
-
-    // Populate userIDs array with user IDs and names
-    room.users.forEach(user => {
-        userIDs.push({'ID': user.id, 'name': user.name});
-    });
-
-    // Array to store general availability for each day of the week
-    var generalAvailability = [[], [], [], [], [], [], []];
-
-    try {
-        // Calculate number of people available on each day
-        room.users.forEach(user => {
-            for (let day = 0; day < 7; day++) {
-                if (user.availability_days[day]) {
-                    generalAvailability[day].push(user.id);
-                }
-            }
-        });
-    } finally {
-        // Object to store formatted JSON output
-        returnJson = {};
-
-        // Format availability JSON for each box (day)
-        for (let day = 0; day < 31; day++) {
-            returnJson["box" + day] = generalAvailability[day % 7]; // Hacky force output to 7 days/week
-        }
-
-        // Return JSON with user IDs, names, and availability data
-        return {'users': userIDs, 'data': returnJson};
-    }
-}
-
-// API endpoint to handle availability requests for a specific room
-app.get("/api/*", (req, res) => {
-    // Extract the wildcard path from the request parameters
-    var wildcardPath = req.params[0];
-
-    // Default to "rc01" if no wildcard path is provided
-    if (!wildcardPath) {
-        wildcardPath = "rc01";
-    }
-
-    console.log("Request for ", wildcardPath);
-
-    // Generate availability JSON for the specified room code
-    const availability = generateAvailabilityJSON(database_fake, wildcardPath);
-
-    // Send the availability JSON as the API response
-    res.json(availability);
-});
-
-// Start the server and listen on the specified port
-app.listen(PORT, () => {
-    console.log(`Server listening on ${PORT}`);
-});
+module.exports = {
+    getRoomData: (roomCode) => databaseFake.rooms[roomCode],
+    getAllRooms: () => databaseFake.rooms,
+};
