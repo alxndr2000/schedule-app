@@ -179,14 +179,14 @@ module.exports = Room;
  * x updateUserName(roomCode, userId, newUserName): Updates a user's name in a room.
  * ? updateUserAvailabilityDays(roomCode, userId, newAvailabilityDays): Updates a user's availability days.
  * ? updateUserSpecificDays(roomCode, userId, newSpecificDays): Updates a user's specific days.
- * - getUserByIdAndRoomCode(roomCode, userId): Retrieves a user by their ID and room code.
- * - listRoomUsersByIdAndName(roomCode): Lists users in a room by their ID and name.
- * - getRoomName(roomCode): Retrieves the name of a room by its code.
- * - listRoomsByCode(): Lists all room codes.
+ * x getUserByIdAndRoomCode(roomCode, userId): Retrieves a user by their ID and room code.
+ * x listRoomUsersByIdAndName(roomCode): Lists users in a room by their ID and name.
+ * x getRoomName(roomCode): Retrieves the name of a room by its code.
+ * x listRoomsByCode(): Lists all room codes.
  *
  * Helper Functions:
- * - generateRoomCode(): Generates a random, non-duplicate 8-character room code.
- * - getNextUserId(users): Gets the next sequential user ID.
+ * x generateRoomCode(): Generates a random, non-duplicate 8-character room code.
+ * x getNextUserId(users): Gets the next sequential user ID.
  */
-
+// x=working ?=untested -=fail
 // await database.connect(async (Room) => {});
