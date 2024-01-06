@@ -1,5 +1,5 @@
 
-const databaseFake = {
+const databaseFake = { //fallback if real db is dead for dev purposes
     "rooms": {
         "rc01": {
             "roomname": "Meeting Room A",
@@ -73,8 +73,48 @@ const databaseFake = {
         }
     }
 }
+const mongoose = require('mongoose');
+const Room = require('./roomModel');
+
+async function connect(codeToExecute) {
+  try {
+    // Connect to MongoDB
+    await mongoose.connect('mongodb://localhost:27017/schedule-db');
+
+    console.debug('Connected to MongoDB');
+
+    // Execute arbitrary code
+    await codeToExecute(Room); // Pass the Room model as an argument
+
+    console.debug('Code execution completed successfully');
+  } catch (error) {
+    console.error('Error:', error);
+  } finally {
+    // Close the MongoDB connection
+    await mongoose.connection.close();
+    console.debug('MongoDB connection closed');
+  }
+}
+
+
+
 
 module.exports = {
     getRoomData: (roomCode) => databaseFake.rooms[roomCode],
     getAllRooms: () => databaseFake.rooms,
-};
+    connect,
+    // Pass through static methods from roomModel.js
+    getRoomByCode: Room.getRoomByCode,
+    updateUserById: Room.updateUserById,
+    createRoom: Room.createRoom,
+    updateRoomName: Room.updateRoomName,
+    createUser: Room.createUser,
+    deleteUserById: Room.deleteUserById,
+    updateUserName: Room.updateUserName,
+    updateUserAvailabilityDays: Room.updateUserAvailabilityDays,
+    updateUserSpecificDays: Room.updateUserSpecificDays,
+    getUserByIdAndRoomCode: Room.getUserByIdAndRoomCode,
+    listRoomUsersByIdAndName: Room.listRoomUsersByIdAndName,
+    getRoomName: Room.getRoomName,
+    listRoomsByCode: Room.listRoomsByCode,
+  };

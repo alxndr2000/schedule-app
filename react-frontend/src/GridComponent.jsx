@@ -15,7 +15,7 @@ const GridComponent = (props) => {
     const fetchData = async () => {
       try {
         // Fetch data from the API using the provided roomCode
-        const response = await fetch('/api/' + props.roomCode);
+        const response = await fetch('/api/old/' + props.roomCode);
         const data = await response.json();
 
         // Set the fetched data to the state
