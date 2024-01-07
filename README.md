@@ -1,4 +1,4 @@
-# API Documentation
+# Backend API Documentation
 
 generated with AI, if errors occur please check the source code
 
@@ -21,7 +21,7 @@ generated with AI, if errors occur please check the source code
 ## 2. Create a New Room
 
 ### Endpoint: `/createRoom/:roomname`
-- **Method:** GET
+- **Method:** POST
 - **Description:** Creates a new room with the provided name.
 - **Parameters:**
   - `roomname` (String): Name for the new room.
@@ -35,7 +35,7 @@ generated with AI, if errors occur please check the source code
 ## 3. Update Room Name
 
 ### Endpoint: `/updateRoomName/:roomCode/:newRoomName`
-- **Method:** GET
+- **Method:** PUT
 - **Description:** Updates the name of a room with the provided code.
 - **Parameters:**
   - `roomCode` (String): Unique identifier for the room.
@@ -50,7 +50,7 @@ generated with AI, if errors occur please check the source code
 ## 4. Create a New User in a Room
 
 ### Endpoint: `/createUser/:roomCode/:username`
-- **Method:** GET
+- **Method:** post
 - **Description:** Creates a new user in a room with the provided code.
 - **Parameters:**
   - `roomCode` (String): Unique identifier for the room.
@@ -65,7 +65,7 @@ generated with AI, if errors occur please check the source code
 ## 5. Delete a User from a Room
 
 ### Endpoint: `/deleteUser/:roomCode/:userId`
-- **Method:** GET
+- **Method:** DELETE
 - **Description:** Deletes a user from a room with the provided code and user ID.
 - **Parameters:**
   - `roomCode` (String): Unique identifier for the room.
@@ -80,7 +80,7 @@ generated with AI, if errors occur please check the source code
 ## 6. Update a User's Name in a Room
 
 ### Endpoint: `/updateUserName/:roomCode/:userId/:newUserName`
-- **Method:** GET
+- **Method:** PUT
 - **Description:** Updates the name of a user in a room with the provided code and user ID.
 - **Parameters:**
   - `roomCode` (String): Unique identifier for the room.
@@ -181,5 +181,21 @@ generated with AI, if errors occur please check the source code
   - Response Body: JSON object with an error message for internal server errors.
 
 ---
+
+## 13. Delete Room by Code
+
+### Endpoint: `/deleteRoom/:roomCode`
+- **Method:** DELETE
+- **Description:** Deletes a room by its unique code.
+- **Parameters:**
+  - `roomCode` (String) - The unique code of the room to be deleted.
+- **Success Response:**
+  - Status Code: 200
+  - Response Body: JSON object with details of the deleted room.
+- **Error Responses:**
+  - Status Code: 404
+    - Response Body: JSON object with an error message indicating that the room was not found.
+  - Status Code: 500
+    - Response Body: JSON object with an error message for internal server errors.
 
 **Note:** Replace placeholders such as `:roomCode`, `:newRoomName`, etc., with actual values when making requests to these endpoints.

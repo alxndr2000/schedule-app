@@ -77,6 +77,11 @@ roomSchema.statics.createUser = async function (roomCode, username) {
 	return room.save();
 };
 
+// Static method to delete a room by code
+roomSchema.statics.deleteRoomByCode = async function (roomCode) {
+    return this.findOneAndDelete({ roomcode: roomCode });
+};
+
 // Helper function to get the next sequential user ID
 function getNextUserId(users) {
 	const existingIds = users.map((user) => user.id);

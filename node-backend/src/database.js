@@ -117,4 +117,5 @@ module.exports = {
     listRoomUsersByIdAndName: Room.listRoomUsersByIdAndName,
     getRoomName: Room.getRoomName,
     listRoomsByCode: Room.listRoomsByCode,
+    deleteRoomByCode: Room.deleteRoomByCode,
   };

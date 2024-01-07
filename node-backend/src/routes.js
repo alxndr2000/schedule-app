@@ -32,7 +32,7 @@ router.get('/getRoom/:roomCode', async (req, res) => {
   
 
 // Endpoint to create a new room
-router.get('/createRoom/:roomname', async (req, res) => {
+router.post('/createRoom/:roomname', async (req, res) => {
     try {
       const roomname = req.params.roomname;
   
@@ -49,7 +49,7 @@ router.get('/createRoom/:roomname', async (req, res) => {
   });
 
 // Endpoint to update room name
-router.get('/updateRoomName/:roomCode/:newRoomName', async (req, res) => {
+router.put('/updateRoomName/:roomCode/:newRoomName', async (req, res) => {
     try {
       const roomCode = req.params.roomCode;
       const newRoomName = req.params.newRoomName;
@@ -67,7 +67,7 @@ router.get('/updateRoomName/:roomCode/:newRoomName', async (req, res) => {
   });
   
 // Endpoint to create a new user in a room
-router.get('/createUser/:roomCode/:username', async (req, res) => {
+router.post('/createUser/:roomCode/:username', async (req, res) => {
 try {
     const roomCode = req.params.roomCode;
     const username = req.params.username;
@@ -83,7 +83,7 @@ try {
 });
 
 // Endpoint to delete a user from a room
-router.get('/deleteUser/:roomCode/:userId', async (req, res) => {
+router.delete('/deleteUser/:roomCode/:userId', async (req, res) => {
 try {
     const roomCode = req.params.roomCode;
     const userId = req.params.userId;
@@ -100,7 +100,7 @@ try {
 });
 
 // Endpoint to update a user's name in a room
-router.get('/updateUserName/:roomCode/:userId/:newUserName', async (req, res) => {
+router.put('/updateUserName/:roomCode/:userId/:newUserName', async (req, res) => {
 try {
     const roomCode = req.params.roomCode;
     const userId = req.params.userId;
@@ -215,6 +215,26 @@ router.put('/updateUserAvailabilityDays/:roomCode/:userId', async (req, res) => 
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
+
+  router.delete('/deleteRoom/:roomCode', async (req, res) => {
+    try {
+        const roomCode = req.params.roomCode;
+        await database.connect(async (Room) => {
+            // Use the deleteRoomByCode method to delete the room
+            const deletedRoom = await Room.deleteRoomByCode(roomCode);
+
+            if (!deletedRoom) {
+                return res.status(404).json({ error: 'Room not found' });
+            }
+
+            res.json(deletedRoom);
+        });
+
+    } catch (error) {
+        console.error('Error:', error.message);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 // Left in for UI as UI needs updating
 router.get('/old/:roomCode', (req, res) => {
