@@ -67,7 +67,7 @@ router.put('/updateRoomName/:roomCode/:newRoomName', async (req, res) => {
   });
   
 // Endpoint to create a new user in a room
-router.post('/createUser/:roomCode/:username', async (req, res) => {
+router.get('/createUser/:roomCode/:username', async (req, res) => {
 try {
     const roomCode = req.params.roomCode;
     const username = req.params.username;
