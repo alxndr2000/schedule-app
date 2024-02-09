@@ -76,10 +76,11 @@ const databaseFake = { //fallback if real db is dead for dev purposes
 const mongoose = require('mongoose');
 const Room = require('./roomModel');
 
+
 async function connect(codeToExecute) {
   try {
     // Connect to MongoDB
-    await mongoose.connect('mongodb://localhost:27017/schedule-db');
+    await mongoose.connect(process.env.DB_URL);
 
     console.debug('Connected to MongoDB');
 

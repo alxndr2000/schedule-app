@@ -32,7 +32,7 @@ router.get('/getRoom/:roomCode', async (req, res) => {
   
 
 // Endpoint to create a new room
-router.post('/createRoom/:roomname', async (req, res) => {
+router.get('/createRoom/:roomname', async (req, res) => {
     try {
       const roomname = req.params.roomname;
   
